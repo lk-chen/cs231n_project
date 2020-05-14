@@ -1,6 +1,10 @@
 # cs231n_project
 Course project for cs231n (2020 Spring)
 
+## Clone the repo
+
+`git clone --recurse-submodules https://github.com/lk-chen/cs231n_project.git`
+
 ## Docker (ignore if you use colab)
 
 * Install docker on your own machine : check online sources

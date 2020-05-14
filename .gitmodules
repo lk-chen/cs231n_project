@@ -1,0 +1,4 @@
+[submodule "faster-rcnn.pytorch"]
+	path = faster-rcnn.pytorch
+	url = https://github.com/jwyang/faster-rcnn.pytorch.git
+	branch = pytorch-1.0
