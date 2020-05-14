@@ -2,3 +2,7 @@
 	path = faster-rcnn.pytorch
 	url = https://github.com/lk-chen/faster-rcnn.pytorch.git
 	branch = pytorch-1.5
+[submodule "detectron2-ResNeSt"]
+	path = detectron2-ResNeSt
+	url = https://github.com/lk-chen/detectron2-ResNeSt.git
+	branch = resnest
