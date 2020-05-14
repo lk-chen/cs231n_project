@@ -6,3 +6,6 @@
 	path = detectron2-ResNeSt
 	url = https://github.com/lk-chen/detectron2-ResNeSt.git
 	branch = resnest
+[submodule "vod-converter"]
+	path = vod-converter
+	url = https://github.com/umautobots/vod-converter.git
