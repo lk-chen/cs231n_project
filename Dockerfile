@@ -1,10 +1,10 @@
 FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-runtime
-RUN pip install jupyter
+RUN pip install jupyter cython
 COPY *.ipynb ./
 RUN apt update
-RUN apt install wget unzip pv -y
-RUN git clone https://github.com/jwyang/faster-rcnn.pytorch.git
-RUN (cd faster-rcnn.pytorch && git checkout pytorch-1.0)
+RUN apt install wget unzip pv g++ -y
+COPY faster-rcnn.pytorch ./faster-rcnn.pytorch
+RUN pip install -r faster-rcnn.pytorch/requirements.txt
 RUN wget --progress=bar:force https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_2.zip
 RUN wget --progress=bar:force https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_image_3.zip
 RUN wget --progress=bar:force https://s3.eu-central-1.amazonaws.com/avg-kitti/data_object_label_2.zip
