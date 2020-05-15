@@ -3,7 +3,10 @@ Course project for cs231n (2020 Spring)
 
 ## Clone the repo
 
-`git clone --recurse-submodules https://github.com/lk-chen/cs231n_project.git`
+```
+git clone --recurse-submodules https://github.com/lk-chen/cs231n_project.git
+git submodule update && git submodule init
+```
 
 ## Docker (ignore if you use colab)
 
