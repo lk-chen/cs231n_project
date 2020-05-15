@@ -9,3 +9,6 @@
 [submodule "vod-converter"]
 	path = vod-converter
 	url = https://github.com/umautobots/vod-converter.git
+[submodule "lsi-faster-rcnn"]
+	path = lsi-faster-rcnn
+	url = https://github.com/cguindel/lsi-faster-rcnn.git
