@@ -24,3 +24,8 @@ git submodule update && git submodule init
 sudo docker cp cs231pj:/workspace/setup.ipynb .
 ```
 
+## Project proposal
+[Proposal link] (https://www.gradescope.com/courses/103764/assignments/469824/submissions/36236109) on gradescope
+
+## Milestone Paper
+[Paper link] (https://www.overleaf.com/project/5ec0685090cbee000145318e) on overleaf
