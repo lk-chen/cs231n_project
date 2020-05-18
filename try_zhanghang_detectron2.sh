@@ -14,7 +14,7 @@ head -n 10 lsi-faster-rcnn/data/kitti/lists/val_lsi.txt > detectron2-ResNeSt/dat
 cat detectron_model/detectron_model_* > detectron2-ResNeSt/output/model_final.pth
 
 (cd detectron2-ResNeSt/ && python3 tools/train_net.py --eval-only  \
-  --config-file configs/PascalVOC-Detection/faster_rcnn_R_50_C4.yaml)
+  --config-file configs/kitti/kitti.yaml)
 
 # Store trained model, github doesn't like big binary file
 mkdir detectron_model -p
