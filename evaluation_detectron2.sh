@@ -11,4 +11,5 @@ echo eval results from
 echo `stat eval_kitti/build/results/exp1/data | grep 'Modify'`
 echo
 
-(cd eval_kitti/build && ./evaluate_object exp1 test && cd ../ && python2 parser.py exp1)
+(cd eval_kitti/build/ && ./evaluate_object exp1 test)
+(cd eval_kitti/ && python2 parser.py exp1)
