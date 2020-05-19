@@ -14,4 +14,4 @@
 	url = https://github.com/cguindel/lsi-faster-rcnn.git
 [submodule "eval_kitti"]
 	path = eval_kitti
-	url = https://github.com/cguindel/eval_kitti.git
+	url = https://github.com/lk-chen/eval_kitti.git
