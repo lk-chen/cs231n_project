@@ -8,7 +8,7 @@ mkdir eval_kitti/build/lists/ -p
 cp detectron2-ResNeSt/datasets/VOC2012/ImageSets/Main/test.txt eval_kitti/build/lists/
 
 echo eval results from
-echo `stat eval_kitti/build/results/exp1/data | grep 'Modify'`
+echo `stat eval_kitti/build/results/exp1/data | grep 'Access: 20'`
 echo
 
 (cd eval_kitti/build/ && ./evaluate_object exp1 test)
