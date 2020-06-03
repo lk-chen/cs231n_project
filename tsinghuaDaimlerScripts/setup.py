@@ -108,25 +108,25 @@ def main(argv):
     opts = parser.parse_args(argv[1:])
     
     with open(os.path.dirname(os.path.realpath(__file__)) +"/LICENSE_public.txt",'r') as f:
-    	file_contents = f.read()
-    	print (file_contents)
+        file_contents = f.read()
+        print (file_contents)
     acceptLicenseAnswer = raw_input("Before using the Tsinghua-Daimler Bicyclist Dataset (TDBD) you are required to agree and accept the license terms. Type 'yes' if you have read and understand all of the terms: ")
     if not acceptLicenseAnswer == "yes":
-	sys.exit(-1)
+        sys.exit(-1)
 
     datasetRootFolder = os.path.abspath(opts.datasetRootFolder)
     if not os.path.isdir(datasetRootFolder):
-	    print("Output Folder does not exist..I will create it..")
-	    os.makedirs(os.path.abspath(datasetRootFolder))
+        print("Output Folder does not exist..I will create it..")
+        os.makedirs(os.path.abspath(datasetRootFolder))
 
     if not opts.tarFolder:
-	tarFolder = datasetRootFolder
+        tarFolder = datasetRootFolder
     else:
-	tarFolder = os.path.abspath(opts.tarFolder)
+        tarFolder = os.path.abspath(opts.tarFolder)
 
     if not os.path.isdir(tarFolder):
-	    print("Input Folder does not exist..I will create it..")
-	    os.makedirs(os.path.abspath(tarFolder))
+        print("Input Folder does not exist..I will create it..")
+        os.makedirs(os.path.abspath(tarFolder))
 
 
     download(tarFolder)
@@ -136,102 +136,102 @@ def main(argv):
     return 0
 
 def dlProgress(count, blockSize, totalSize):
-	percent = min(100, count*blockSize*100.0/totalSize)
-	sys.stdout.write("\r ...%0.2f%% " % percent)
-	sys.stdout.flush()
+    percent = min(100, count*blockSize*100.0/totalSize)
+    sys.stdout.write("\r ...%0.2f%% " % percent)
+    sys.stdout.flush()
 
 
 
 
 
 def download(tarFolder):
-	print "\nChecksum verification and download if necessary ... (this can take a while)"
-	for downloadFile in downloadList:
-		# File to check   
-		tarFileInBase = os.path.join(tarFolder, os.path.basename(downloadFile[0]))
-		
-		global downFile # global variable to be used in dlProgress
-		downFile = downloadFile[0]
+    print "\nChecksum verification and download if necessary ... (this can take a while)"
+    for downloadFile in downloadList:
+        # File to check   
+        tarFileInBase = os.path.join(tarFolder, os.path.basename(downloadFile[0]))
+        
+        global downFile # global variable to be used in dlProgress
+        downFile = downloadFile[0]
 
-	
+    
 
-		if not os.path.exists(tarFileInBase) or not md5Check(downloadFile[1], tarFileInBase ):
-			
-			print "\nDownload file "+downFile
+        if not os.path.exists(tarFileInBase) or not md5Check(downloadFile[1], tarFileInBase ):
+            
+            print("\nDownload file "+downFile)
 
-			try:
-				downloadWithResume(tarFileInBase, downFile)
-            			#urlOpener.retrieve(downFile, tarFileInBase, reporthook=dlProgress)
-        		except:
-				print "\nDownload of {} not possible. Make sure you're prox is correctly configured and you are not behind a firewall.".format(downFile)
-				print "\nBye."
-				sys.exit(1)
-			
-			
-			# Open,close, read file and calculate MD5 on its contents
-			md5Check(downloadFile[1], tarFileInBase )
+            try:
+                downloadWithResume(tarFileInBase, downFile)
+                #urlOpener.retrieve(downFile, tarFileInBase, reporthook=dlProgress)
+            except:
+                print("\nDownload of {} not possible. Make sure you're prox is correctly configured and you are not behind a firewall.".format(downFile))
+                print("\nBye.")
+                sys.exit(1)
+            
+            
+            # Open,close, read file and calculate MD5 on its contents
+            md5Check(downloadFile[1], tarFileInBase )
     
 
 def md5Check(originalChecksum, fileToCheck ):
-		# Open,close, read file and calculate MD5 on its contents
-		if not originalChecksum:
-			print "No checksum available"
-			return True
-		print "\nMD5 checksumm check "+fileToCheck
-		md5_returned = md5_for_file(fileToCheck)
-		print md5_returned
-		    
+        # Open,close, read file and calculate MD5 on its contents
+        if not originalChecksum:
+            print("No checksum available")
+            return True
+        print("\nMD5 checksumm check "+fileToCheck)
+        md5_returned = md5_for_file(fileToCheck)
+        print(md5_returned)
+            
 
-		# Finally compare original MD5 with freshly calculated
-		if originalChecksum:
-			if originalChecksum == md5_returned:
-			    print "\nMD5 for {} verified.".format(fileToCheck)
-			    return True
-			else:
-			    print "\nMD5 verification for {} failed!. Please delete tar.gz manually or/and execute setup.py again".format(fileToCheck)
-			    sys.exit(1)
-	 	
+        # Finally compare original MD5 with freshly calculated
+        if originalChecksum:
+            if originalChecksum == md5_returned:
+                print("\nMD5 for {} verified.".format(fileToCheck))
+                return True
+            else:
+                print("\nMD5 verification for {} failed!. Please delete tar.gz manually or/and execute setup.py again".format(fileToCheck))
+                sys.exit(1)
+         
 
 
 def downloadWithResume(dlFile,internetFile):
-	loop = 1
-	existSize = 0
-	myUrlclass = myURLOpener()
-	if os.path.exists(dlFile):
-	    outputFile = open(dlFile,"ab")
-	    existSize = os.path.getsize(dlFile)
-	    #If the file exists, then only download the remainder
-	    myUrlclass.addheader("Range","bytes=%s-" % (existSize))
-	else:
-	    outputFile = open(dlFile,"wb")
+    loop = 1
+    existSize = 0
+    myUrlclass = myURLOpener()
+    if os.path.exists(dlFile):
+        outputFile = open(dlFile,"ab")
+        existSize = os.path.getsize(dlFile)
+        #If the file exists, then only download the remainder
+        myUrlclass.addheader("Range","bytes=%s-" % (existSize))
+    else:
+        outputFile = open(dlFile,"wb")
 
-	webPage = myUrlclass.open(internetFile)
+    webPage = myUrlclass.open(internetFile)
 
-	#If the file exists, but we already have the whole thing, don't download again
-	try:
-		internetFileSize = int(webPage.headers['Content-Length'])
-	except:
-		print "I can't establish a connection to {}. Make sure your proxy setting are correct."
-		sys.exit(-1)
-	
-	if internetFileSize == existSize:
-	    loop = 0
-	    print "File already downloaded"
-	numBytes = 0
-	while loop:
-	    data = webPage.read(8192)
-	    if not data:
-		break
-	    outputFile.write(data)
-	    
-	    numBytes = numBytes + len(data)
-	    dlProgress(1, existSize + numBytes,internetFileSize) 
-	webPage.close()
-	outputFile.close()
+    #If the file exists, but we already have the whole thing, don't download again
+    try:
+        internetFileSize = int(webPage.headers['Content-Length'])
+    except:
+        print("I can't establish a connection to {}. Make sure your proxy setting are correct.")
+        sys.exit(-1)
+    
+    if internetFileSize == existSize:
+        loop = 0
+        print("File already downloaded")
+    numBytes = 0
+    while loop:
+        data = webPage.read(8192)
+        if not data:
+            break
+        outputFile.write(data)
+        
+        numBytes = numBytes + len(data)
+        dlProgress(1, existSize + numBytes,internetFileSize) 
+    webPage.close()
+    outputFile.close()
 
-	#for k,v in webPage.headers.items():
-	#    print k, "=",v
-	print "copied", numBytes, "bytes from", webPage.url
+    #for k,v in webPage.headers.items():
+    #    print k, "=",v
+    print("copied", numBytes, "bytes from", webPage.url)
 
 
 def md5_for_file(path, block_size=256*128):
@@ -243,23 +243,23 @@ def md5_for_file(path, block_size=256*128):
     md5 = hashlib.md5()
     fileSize = os.path.getsize(path)
     with open(path,'rb') as f: 
-	count=1
+        count=1
         for chunk in iter(lambda: f.read(block_size), b''): 
-             md5.update(chunk)
-	     dlProgress(count, block_size, fileSize)
-	     count=count+1
+            md5.update(chunk)
+            dlProgress(count, block_size, fileSize)
+            count=count+1
     return md5.hexdigest()
 
 
 def untar(inputFolder, datasetRootFolder):
-    print "Untar files ..."
+    print("Untar files ...")
     total = 0
     if os.path.isdir(inputFolder):
         try:
             dir_list = glob.glob(inputFolder + "/tdcb_*.tar.gz")
         except:
             pass
-	
+    
     for tarFile in dir_list:
         try:
             tarfile.open(tarFile).extractall(datasetRootFolder)
