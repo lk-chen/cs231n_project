@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #   ----------------------
 #   The Tsinghua-Daimler Cyclist Benchmark
 #   ----------------------
@@ -145,7 +145,7 @@ def dlProgress(count, blockSize, totalSize):
 
 
 def download(tarFolder):
-    print "\nChecksum verification and download if necessary ... (this can take a while)"
+    print("\nChecksum verification and download if necessary ... (this can take a while)")
     for downloadFile in downloadList:
         # File to check   
         tarFileInBase = os.path.join(tarFolder, os.path.basename(downloadFile[0]))
