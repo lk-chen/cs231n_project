@@ -14,6 +14,7 @@ head -n 2064 lsi-faster-rcnn/data/kitti/lists/val_lsi.txt > detectron2-ResNeSt/d
 cat detectron_model/config_path_placeholder/detectron_model_* > detectron2-ResNeSt/output/model_final.pth
 
 rm detectron2-ResNeSt/output/*tfevents*
+rm detectron2-ResNeSt/output/log.txt
 
 (cd detectron2-ResNeSt/ && python3 tools/train_net.py \
   --config-file configs/kitti/config_path_placeholder.yaml)
@@ -27,3 +28,7 @@ rm detectron2-ResNeSt/output/*tfevents*
 # Store trained model, github doesn't like big binary file
 rm detectron_model/config_path_placeholder/* || mkdir detectron_model/config_path_placeholder -p
 (cd detectron_model/config_path_placeholder && split -b 50M ../../detectron2-ResNeSt/output/model_final.pth detectron_model_)
+
+# Store tfevents and log
+cp detectron2-ResNeSt/output/*tfevents* detectron_model/config_path_placeholder/
+cp detectron2-ResNeSt/output/log.txt detectron_model/config_path_placeholder/
