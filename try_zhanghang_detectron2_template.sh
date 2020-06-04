@@ -17,7 +17,7 @@ rm detectron2-ResNeSt/output/*tfevents*
 rm detectron2-ResNeSt/output/log.txt
 
 (cd detectron2-ResNeSt/ && python3 tools/train_net.py \
-  --config-file configs/kitti/config_path_placeholder.yaml)
+  --config-file configs/kitti/config_path_placeholder.yaml SOLVER.MAX_ITER 10000)
 
 # (cd detectron2-ResNeSt/ && python3 tools/train_net.py --resume \
 #   --config-file configs/kitti/config_path_placeholder.yaml MODEL.WEIGHTS output/model_final.pth)
