@@ -26,9 +26,8 @@ rm detectron2-ResNeSt/output/config_path_placeholder/log.txt
 
 # Store trained model, github doesn't like big binary file
 rm detectron_model/config_path_placeholder/* || mkdir detectron_model/config_path_placeholder -p
-(cd detectron_model/config_path_placeholder && split -b 50M ../../detectron2-ResNeSt/output/model_final.pth detectron_model_)
 
-cp detectron2-ResNeSt/output/config_path_placeholder/model_final.pth detectron2-ResNeSt/output/
+(cd detectron_model/config_path_placeholder && split -b 50M ../../detectron2-ResNeSt/output/config_path_placeholder/model_final.pth detectron_model_)
 
 # Store tfevents and log
 cp detectron2-ResNeSt/output/config_path_placeholder/*tfevents* detectron_model/config_path_placeholder/

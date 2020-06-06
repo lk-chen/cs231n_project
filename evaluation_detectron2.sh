@@ -33,7 +33,7 @@ eval_set=exp1    # exp1
 
 mkdir -p  eval_kitti/build/results/$eval_set
 
-echo eval results from
+echo eval results from eval_kitti/build/results/$eval_set/data
 echo `stat eval_kitti/build/results/$eval_set/data | grep 'Access: 20'`
 echo
 
