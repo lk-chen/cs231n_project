@@ -13,11 +13,10 @@ head -n 2064 lsi-faster-rcnn/data/kitti/lists/val_lsi.txt > detectron2-ResNeSt/d
 # Use trained model in case you just want to --eval-only
 cat detectron_model/config_path_placeholder/detectron_model_* > detectron2-ResNeSt/output/model_final.pth
 
-rm detectron2-ResNeSt/output/*tfevents*
-rm detectron2-ResNeSt/output/log.txt
-
+rm detectron2-ResNeSt/output/config_path_placeholder/*tfevents*
+rm detectron2-ResNeSt/output/config_path_placeholder/log.txt
 (cd detectron2-ResNeSt/ && python3 tools/train_net.py \
-  --config-file configs/kitti/config_path_placeholder.yaml SOLVER.MAX_ITER 10000)
+  --config-file configs/kitti/config_path_placeholder.yaml SOLVER.MAX_ITER 10000 OUTPUT_DIR output/config_path_placeholder)
 
 # (cd detectron2-ResNeSt/ && python3 tools/train_net.py --resume \
 #   --config-file configs/kitti/config_path_placeholder.yaml MODEL.WEIGHTS output/model_final.pth)
@@ -29,6 +28,8 @@ rm detectron2-ResNeSt/output/log.txt
 rm detectron_model/config_path_placeholder/* || mkdir detectron_model/config_path_placeholder -p
 (cd detectron_model/config_path_placeholder && split -b 50M ../../detectron2-ResNeSt/output/model_final.pth detectron_model_)
 
+cp detectron2-ResNeSt/output/config_path_placeholder/model_final.pth detectron2-ResNeSt/output/
+
 # Store tfevents and log
-cp detectron2-ResNeSt/output/*tfevents* detectron_model/config_path_placeholder/
-cp detectron2-ResNeSt/output/log.txt detectron_model/config_path_placeholder/
+cp detectron2-ResNeSt/output/config_path_placeholder/*tfevents* detectron_model/config_path_placeholder/
+cp detectron2-ResNeSt/output/config_path_placeholder/log.txt detectron_model/config_path_placeholder/
