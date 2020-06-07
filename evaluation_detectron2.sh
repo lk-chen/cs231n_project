@@ -2,7 +2,7 @@
 # build binary with steps in ipynb
 # create dirs
 
-kitti_label_path=/home/lizhe/datasets/kitti/training/label_2
+kitti_label_path=`pwd`/training/label_2
 tsinghua_label_path=/demo-mount/datasets/cyclist-kitti/training/label_2
 label_output_path=eval_kitti/build/data/object/label_2
 
@@ -33,7 +33,7 @@ eval_set=exp1    # exp1
 
 mkdir -p  eval_kitti/build/results/$eval_set
 
-echo eval results from
+echo eval results from eval_kitti/build/results/$eval_set/data
 echo `stat eval_kitti/build/results/$eval_set/data | grep 'Access: 20'`
 echo
 
